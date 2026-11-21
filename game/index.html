@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lantern Hunt — Spot the Difference</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="app">
+  <header>
+    <h1>🏮 Lantern Hunt</h1>
+    <p class="subtitle">Spot the difference — two pictures, seven secrets, one sharp eye.</p>
+    <div id="scene-dots">
+      <button class="scene-dot" data-scene="0" title="Lantern Market">1</button>
+      <button class="scene-dot" data-scene="1" title="Harbour Dawn">2</button>
+      <button class="scene-dot" data-scene="2" title="Greenhouse">3</button>
+    </div>
+  </header>
+
+  <div id="hud">
+    <div class="hud-item"><span class="hud-label">Found</span><span id="found-count">0 / 7</span></div>
+    <div class="hud-item"><span class="hud-label">Left</span><span id="left-count">7 to go</span></div>
+    <div class="hud-item"><span class="hud-label">Time</span><span id="timer">02:30</span></div>
+    <div class="hud-item"><span class="hud-label">Score</span><span id="score">0</span></div>
+    <div class="hud-item"><span class="hud-label">Streak</span><span id="streak">🔥 0</span></div>
+    <button id="hint-btn">💡 Hint (3)</button>
+    <button id="mute-btn">🔊 Sound on</button>
+  </div>
+
+  <div id="board-wrap">
+    <div id="play-screen">
+      <p id="scene-name">Lantern Market · Night market · Easy</p>
+      <div id="panels">
+        <div class="panel" id="panel-a"><div class="svg-holder" id="svg-a"></div><div class="mark-layer" id="marks-a"></div></div>
+        <div class="panel" id="panel-b"><div class="svg-holder" id="svg-b"></div><div class="mark-layer" id="marks-b"></div></div>
+      </div>
+      <p class="hint-line">Click a difference on either picture — it gets circled on both. Wrong click: −3s. Keys: H hint · M mute · R restart.</p>
+    </div>
+
+    <div id="toast"></div>
+
+    <div id="title-screen" class="overlay">
+      <div class="card">
+        <h2>🏮 Lantern Hunt</h2>
+        <p>Two pictures hang side by side. They look the same — they are not.
+        Seven small things changed between them. Find them all before the clock runs out.</p>
+        <p id="title-total">3 scenes · 21 differences · 3 hints per scene</p>
+        <ul class="rules">
+          <li>🖱️ Click a difference on either picture to circle it on both</li>
+          <li>⏱️ 2:30 per scene — a wrong click costs 3 seconds</li>
+          <li>💡 Hints cost 10 seconds each, and there are only 3 per scene</li>
+          <li>🔥 Finds in a row build a streak bonus</li>
+        </ul>
+        <button id="start-btn" class="big-btn">Start hunting</button>
+      </div>
+    </div>
+
+    <div id="scene-done-screen" class="overlay hidden">
+      <div class="card">
+        <h2 id="done-title">Scene cleared!</h2>
+        <div id="done-stars" class="stars">★★★</div>
+        <p id="done-detail"></p>
+        <button id="next-btn" class="big-btn">Next scene →</button>
+      </div>
+    </div>
+
+    <div id="timeup-screen" class="overlay hidden">
+      <div class="card">
+        <h2>⏰ Time's up!</h2>
+        <p id="timeup-detail"></p>
+        <button id="retry-btn" class="big-btn">Try this scene again</button>
+        <button id="timeup-menu-btn" class="ghost-btn">Back to title</button>
+      </div>
+    </div>
+
+    <div id="final-screen" class="overlay hidden">
+      <div class="card">
+        <h2>🎉 Hunt complete!</h2>
+        <div id="final-stars" class="stars">★★★</div>
+        <p class="big-score">Score: <span id="final-score">0</span></p>
+        <p id="final-detail"></p>
+        <button id="again-btn" class="big-btn">Play again</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>Original art, drawn in code — no borrowed pictures. Best played with sound on.</footer>
+</div>
+<script type="module" src="src/main.js"></script>
+</body>
+</html>
