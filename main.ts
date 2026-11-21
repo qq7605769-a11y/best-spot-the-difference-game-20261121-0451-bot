@@ -9,7 +9,7 @@
 //
 // Local check:  mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts
 
-import { cpSync, existsSync, mkdirSync, rmSync, writeFileSync } from 'node:fs';
+import { cpSync, existsSync, mkdirSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildDossier } from './vendor/makefun-game.ts';
@@ -18,8 +18,13 @@ const repoRoot = fileURLToPath(new URL('.', import.meta.url));
 const outDir = process.env.MAKEFUN_OUTPUT_DIR ?? '/output';
 
 // Start from a clean output directory so a stale file can never leak in.
-rmSync(outDir, { recursive: true, force: true });
+// Empty its contents, never the directory itself: the grader mounts the
+// output directory (writable inside), but its parent is a read-only
+// filesystem, so removing and recreating the directory fails outright.
 mkdirSync(outDir, { recursive: true });
+for (const entry of readdirSync(outDir)) {
+  rmSync(join(outDir, entry), { recursive: true, force: true });
+}
 
 cpSync(join(repoRoot, 'game'), join(outDir, 'game'), { recursive: true });
 mkdirSync(join(outDir, 'screenshots'), { recursive: true });
